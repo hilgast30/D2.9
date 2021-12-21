@@ -1,0 +1,104 @@
+Команды Shell 
+
+1. Создаем 4 пользователя
+
+writer1 = User.objects.create_user(username = 'Первый автор')
+writer2 = User.objects.create_user(username = 'Второй автор')
+reader1 = User.objects.create_user(username = 'Первый читатель')
+reader2 = User.objects.create_user(username = 'Второй читатель')
+
+Два пользователя становятся авторами
+
+author1 = Author.objects.create(user=writer1)
+author2 = Author.objects.create(user=writer2)
+
+Создаем 4 категории
+
+cat1 = Category.objects.create(name = 'Тема1')
+cat2 = Category.objects.create(name = 'Тема2')
+cat3 = Category.objects.create(name = 'Тема3')
+cat4 = Category.objects.create(name = 'Тема4')
+
+Создаем 2 статьи
+
+some_text = 'лучшая статья'
+
+article1 = Post.objects.create(author = author1, post_type = 'AR', title = 'Хорошая статья', text = some_text)
+
+some_text = 'статья хуже'
+
+article = Post.objects.create(author = author2, post_type = 'AR', title = 'Статья похуже', text = some_text)
+
+хорошая новость
+
+some_text = ' хорошее'
+
+news1 = Post.objects.create(author = author1, post_type = 'NW', title = 'Хорошая новость', text = some_text)
+
+some_text = 'кое-что плохое'
+
+news2 = Post.objects.create(author = author2, post_type = 'NW', title = 'Плохая новость', text = some_text)
+
+категории
+
+article1.category.add(cat1)
+article1.category.add(cat2)
+article2.category.add(cat3)
+article2.category.add(cat4)
+
+news1.category.add(cat1)
+news2.category.add(cat2)
+
+
+начинают писать комментарии.
+
+reader1 = User.objects.get(id=4)
+reader2 = User.objects.get(id=5)
+
+article1 = Post.objects.get(id=1)
+Comment.objects.create(post = article1, comment_author = reader1, text = 'Понравилось')
+article1.like()
+Comment.objects.create(post = article1, comment_author = reader2, text = 'Очень понравилось')
+article1.like()
+
+article2 = Post.objects.get(id=2)
+Comment.objects.create(post = article2, comment_author = reader1, text = 'Понравилось')
+article2.like()
+Comment.objects.create(post = article2, comment_author = reader2, text = 'Не понравилось')
+article2.dislike()
+
+news1 = Post.objects.get(id=3)
+news2 = Post.objects.get(id=4)
+
+Comment.objects.create(post = news1, comment_author = reader1, text = 'Только хочется больше')
+news1.like()
+
+Comment.objects.create(post = news1, comment_author = reader2, text = 'Только хочется чаще')
+news1.like()
+
+Comment.objects.create(post = news2, comment_author = reader1, text = 'Бывает и хуже, хотя и реже')
+news2.like()
+
+Comment.objects.create(post = news2, comment_author = reader2, text = 'Вот удивил! А то мы не знаем.')
+news2.dislike()
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
